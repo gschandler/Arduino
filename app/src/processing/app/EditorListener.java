@@ -27,7 +27,7 @@ import processing.app.syntax.*;
 
 import java.awt.*;
 import java.awt.event.*;
-
+import javax.swing.text.*;
 
 /**
  * Filters key events for tab expansion/indent/etc.
@@ -79,6 +79,8 @@ public class EditorListener {
     tabString = Editor.EMPTY.substring(0, tabSize);
     autoIndent = Preferences.getBoolean("editor.indent");
     externalEditor = Preferences.getBoolean("editor.external");
+    
+   	textarea.getDocument().putProperty( PlainDocument.tabSizeAttribute, new Integer(4) );
   }
 
 
@@ -282,6 +284,11 @@ public class EditorListener {
 
         event.consume();
         return true;
+      }
+      else {
+        textarea.setSelectedText("\t");
+        event.consume();
+		return true;
       }
       break;
 
